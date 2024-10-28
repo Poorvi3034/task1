@@ -30,4 +30,51 @@ gedit editor
 
 ![image](https://github.com/user-attachments/assets/79c3a328-ba28-4208-ad67-14c8fb1b9ad1)
 
+***
+***
+***
+
+## TASK 2 
+
+## A. SPIKE simulation and observation with -o1 and -ofast 
+
+## STEPS
+1. The C code of TASK 1
+
+![image](https://github.com/user-attachments/assets/e9cdacf7-cb34-4fa8-a0a4-059ee4b5a700)
+
+2. -ofast output using riscv simulator
+
+![Screenshot 2024-10-24 094029](https://github.com/user-attachments/assets/99830a20-f888-4628-aab8-9294084c29b1)
+
+3. confirm the same using SPIKE
+
+![Screenshot 2024-10-27 194935](https://github.com/user-attachments/assets/73c0a1f2-9e4f-44c1-837f-258f2e067abd)
+
+***
+***
+
+## B. write a simple c program for any simple application and risc-v GCC/ SPIKE
+
+## STEPS 
+ I chose a simple C program that prints all the prime number from 1 to 100
+ it loops from 2 to 100. The inner loop checks for the factors of the current number . If any number between 2 and the square root of the current nyumber divides it evenly, its not prime number.
+
+![Screenshot 2024-10-28 195644](https://github.com/user-attachments/assets/f1083b48-3f9c-4953-bcb0-ada28fa59015)
+
+compile using GCC
+
+
+![Screenshot 2024-10-28 201122](https://github.com/user-attachments/assets/688cb76f-15ee-48ca-a599-078662903d12)
+
+Compile using riscv
+
+![image](https://github.com/user-attachments/assets/95ddf564-885d-431a-a9ba-e4c4b141bf86)
+
+
+![Screenshot 2024-10-28 203203](https://github.com/user-attachments/assets/c5697747-c7e5-4e4c-bb64-7376047a4257)
+
+
+
+
 
