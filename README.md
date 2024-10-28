@@ -75,6 +75,17 @@ Compile using riscv
 ![Screenshot 2024-10-28 203203](https://github.com/user-attachments/assets/c5697747-c7e5-4e4c-bb64-7376047a4257)
 
 
+compile using SPIKE
+
+![Screenshot 2024-10-28 213910](https://github.com/user-attachments/assets/de09b867-a337-4fa5-a16e-09ffbf1d0ce0)
+
+![Screenshot 2024-10-28 213938](https://github.com/user-attachments/assets/3553fbc6-b68d-4cb4-851b-4c1bb87cd8d8)
+
+
+
+
+
+
 
 
 
