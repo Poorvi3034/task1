@@ -81,6 +81,111 @@ compile using SPIKE
 
 ![Screenshot 2024-10-28 213938](https://github.com/user-attachments/assets/3553fbc6-b68d-4cb4-851b-4c1bb87cd8d8)
 
+***
+***
+***
+
+## TASK 3
+***
+## RISC-V Instruction Types (R,I,S,B,U,J):
+
+ In RISC-V architecture, instructions are classified into different instruction types based on their format and usage. There are six main instruction types: R-type, I-type, S-type, B-type, U-type, and J-type. Each type has a different purpose and layout in the instruction format.  
+ 
+## 1. R-type (Register)
+Purpose: Used for operations that involve registers, such as arithmetic or logic operations between two registers.
+
+opcode: Operation code (6 bits)
+
+rd: Destination register (5 bits)
+
+rs1: First source register (5 bits)
+
+rs2: Second source register (5 bits)
+
+funct3: Function code (3 bits)
+
+funct7: Additional function code (7 bits)
+
+***
+
+## 2. I-type (Immediate)
+Purpose: Used for operations involving an immediate value (constant) and a register.
+
+opcode: Operation code (7 bits)
+
+rd: Destination register (5 bits)
+
+rs1: Source register (5 bits)
+
+imm: Immediate value (12 bits)
+
+***
+
+
+## 3. S-type (Store)
+Purpose: Used for store operations, where data is stored from a register to memory.
+
+opcode: Operation code (7 bits)
+
+rs1: Base register (5 bits)
+
+rs2: Source register (5 bits)
+
+funct3: Function code (3 bits)
+
+imm: Immediate value (12 bits, split into two parts)
+
+***
+
+
+## 4.B-type (Branch)
+Purpose: Used for branch operations, which control program flow based on conditions (e.g., branch if equal, branch if less than).
+
+opcode: Operation code (7 bits)
+
+rs1: First register (5 bits)
+
+rs2: Second register (5 bits)
+
+funct3: Function code (3 bits)
+
+imm: Immediate value (12 bits, split into multiple fields)
+
+***
+
+## 5. U-type (Upper Immediate)
+Purpose: Used for instructions that operate on an immediate value, especially for setting a large immediate value in the upper 20 bits.
+
+opcode: Operation code (7 bits)
+
+rd: Destination register (5 bits)
+
+imm: Immediate value (20 bits)
+
+***
+
+## 6. J-type (Jump)
+   
+Purpose: Used for jump operations, which are typically used to perform unconditional jumps (like a function call or returning from a function).
+
+opcode: Operation code (7 bits)
+
+rd: Destination register (5 bits, typically used for the return address in some instructions)
+
+imm: Immediate value (20 bits, split into multiple fields)
+
+ ***
+ ***
+
+
+
+## 15 Unique Instructions and Their 32-bit Machine Code                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+![image](https://github.com/user-attachments/assets/86bca67e-d5a3-49b2-b253-b3f5d952c9d9)
+
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+
 
 
 
