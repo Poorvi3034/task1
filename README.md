@@ -182,6 +182,45 @@ imm: Immediate value (20 bits, split into multiple fields)
 ## 15 Unique Instructions and Their 32-bit Machine Code                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
 ![image](https://github.com/user-attachments/assets/86bca67e-d5a3-49b2-b253-b3f5d952c9d9)
 
+***
+***
+***
+## TASK 4
+## Use this RISC-V core verilog netlist and testbench for functional simulation experiment and upload waveform
+***NOTE:** Since the designing of RISCV Architecture and writing it's testbench is not the part of this Research Internship, so we will use the Verilog Code and Testbench of RISCV that has already been designed. The reference GitHub repository is : [iiitb_rv32i] https://github.com/vinayrayapati/rv32i/blob/main/iiitb_rv32i.v
+## steps 
+1. create a directory
+
+   
+2. create a files using 'touch' command
+
+![Screenshot 2024-11-08 225143](https://github.com/user-attachments/assets/050cf959-2992-42cd-94c3-886a35735609) 
+
+
+3. Copy the code from the reference github repo and paste it in your verilog and testbench files.
+   
+![Screenshot 2024-11-08 233152](https://github.com/user-attachments/assets/3727fa4f-a0f1-462f-9816-85b9594372eb) 
+
+![Screenshot 2024-11-08 233329](https://github.com/user-attachments/assets/6fc30d5f-6dc9-4c35-841a-0dde951d0455) 
+
+
+4. enter the simulation command for verilog code and for waveform in GTKWave
+   
+$ iverilog -o task_rv32i task_rv32i.v task_rv32i_tb.v 
+
+$ ./task_rv32i
+
+$ gtkwave task_rv32i.vcd
+
+
+5. the GTKWave will be opened and output waveform of various instructions that we have covered in TASK -2
+![Screenshot 2024-11-08 232819](https://github.com/user-attachments/assets/8e8c5ec9-66af-424f-a235-ff08596f2963)
+ 
+
+
+
+
+
 
 
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
