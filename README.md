@@ -221,213 +221,112 @@ $ gtkwave task_rv32i.vcd
 ***
  ## TASK 5 
  ## MINI PROJECT
-
- ##  Burgler Alarm
-In today’s world of IoT devices, CCTV cameras are widely used for surveillance, but they come with challenges such as complex installation, reliance on internet connectivity, high memory consumption, and privacy concerns in private areas. To address this, there’s a need for a simpler, more efficient security solution.
-
-The Advanced Easy to Use Burglar Alarm uses an ultrasonic radar sensor to detect movement and alerts users with a passive buzzer when trespassing occurs. Unlike laser-based systems, this device is easy to install and requires minimal setup, just needing placement perpendicular to a solid surface. It features an auto-adjust function that measures distance and sets a detection threshold, with the device working on just 5V DC power.
+ Implementing Full Adder using VSDSquadron Mini
+ 
+This project implements a Full Adder combinational circuit using the VSDSquadron Mini, a RISC-V-based SoC development kit. A Full Adder is critical in digital electronics for adding binary digits and is essential for n-bit adder designs. The project showcases the practical use of RISC-V architecture and digital logic, simulating the full adder operation via GPIO pins using PlatformIO IDE. Outputs are displayed through LEDs, highlighting the integration of binary arithmetic and digital circuit design.
 
 ## Components Required
+1. VSDSquadron Mini
+2. Push Buttons for Input of binary data
+3. 2 LEDs for displaying the Output
+4. Breadboard
+5. Jumper Wires
+6. VS Code for Software Development
+7. PlatformIO multi framework professional IDE
 
-VSD Squadron Mini developement board
-Male USB C Cable
-HC-SR04 Ultrasonic Sensor
-Bread Board
-Male to Male; Male to Female jumper cable
-Red LED
-Passive Buzzer
-220 Ohm Resistor
-Toggle Switch
+## circuit diagram
 
-
-
-## Circuit Diagram
+![image](https://github.com/user-attachments/assets/41d54dec-7024-4ba2-8af2-c09e639a3266)
+![image](https://github.com/user-attachments/assets/7fa84d97-4f64-4d2a-9f23-989e2b74bef9)
 
 
-![WhatsApp Image 2024-11-12 at 1 58 14 PM](https://github.com/user-attachments/assets/bd2b8812-44a6-41d0-96f7-27532f9118d2)
+## TRUTH TABLE
+![image](https://github.com/user-attachments/assets/c6660376-a59d-43a8-9408-91365a3d9a9c)
 
-HC-SR04 Ultrasonic Sensor:
+## coding 
 
-VCC connects to 5V on the VSD Squadron Mini.
-Trig connects to PD3 on the VSD Squadron Mini.
-Echo connects to PD2 on the VSD Squadron Mini.
-Gnd connects to Gnd on the VSD Squadron Mini.
-LED with Resistor:
+#define  UART_MODULE_ENABLED
 
-The positive leg (+) of the LED connects to PD4 on the VSD Squadron Mini.
-The negative leg (–) of the LED connects through a 220Ω resistor to Gnd.
-Buzzer:
+#define I2C_MODULE_ENABLED
 
-Pin 1 of the buzzer connects to PC7 on the VSD Squadron Mini.
-Pin 2 of the buzzer connects to Gnd.
-Button Switch:
+#define ADC_MODULE_ENABLED
 
-Pin 1 of the button connects to 5V.
-Pin 2 of the button connects to PC3 on the VSD Squadron Mini.
+#define SPI_MODULE_ENABLED
 
-## code
-
-#include "debug.h"
-
-uint16_t distance;
-uint16_t press;
-
-void Input_Capture_Init(uint16_t arr, uint32_t psc)
-{
-    GPIO_InitTypeDef        GPIO_InitStructure = {0};
-    TIM_ICInitTypeDef       TIM_ICInitStructure = {0};
-    TIM_TimeBaseInitTypeDef TIM_TimeBaseInitStructure = {0};
-    NVIC_InitTypeDef        NVIC_InitStructure = {0};
-
-    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOD | RCC_APB2Periph_GPIOC | RCC_APB2Periph_TIM1, ENABLE);
-
-    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_2;
-    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPD;
-    GPIO_Init(GPIOD, &GPIO_InitStructure);
-    GPIO_ResetBits(GPIOD, GPIO_Pin_2);
-    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_3;
-    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPD;
-    GPIO_Init(GPIOC, &GPIO_InitStructure);
-
-    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_3 | GPIO_Pin_4;
-    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
-    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-    GPIO_Init(GPIOD, &GPIO_InitStructure);
-
-    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_7;
-    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
-    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-    GPIO_Init(GPIOC, &GPIO_InitStructure);
-
-    TIM_TimeBaseInitStructure.TIM_Period = arr;
-    TIM_TimeBaseInitStructure.TIM_Prescaler = psc;
-    TIM_TimeBaseInitStructure.TIM_ClockDivision = TIM_CKD_DIV1;
-    TIM_TimeBaseInitStructure.TIM_CounterMode = TIM_CounterMode_Up;
-    TIM_TimeBaseInitStructure.TIM_RepetitionCounter = 0x00;
-    TIM_TimeBaseInit(TIM1, &TIM_TimeBaseInitStructure);
-     TIM_ICInitStructure.TIM_Channel = TIM_Channel_1;
-    TIM_ICInitStructure.TIM_ICPrescaler = TIM_ICPSC_DIV1;
-    TIM_ICInitStructure.TIM_ICFilter = 0x00;
-    TIM_ICInitStructure.TIM_ICPolarity = TIM_ICPolarity_Rising;
-    TIM_ICInitStructure.TIM_ICSelection = TIM_ICSelection_DirectTI;
-
-    TIM_PWMIConfig(TIM1, &TIM_ICInitStructure);
-
-    NVIC_InitStructure.NVIC_IRQChannel = TIM1_CC_IRQn;
-    NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
-    NVIC_InitStructure.NVIC_IRQChannelSubPriority = 1;
-    NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
-    NVIC_Init(&NVIC_InitStructure);
-
-    TIM_ITConfig(TIM1, TIM_IT_CC1 | TIM_IT_CC2, ENABLE);
-
-    TIM_SelectInputTrigger(TIM1, TIM_TS_TI1FP1);
-    TIM_SelectSlaveMode(TIM1, TIM_SlaveMode_Reset);
-    TIM_SelectMasterSlaveMode(TIM1, TIM_MasterSlaveMode_Enable);
-    TIM_Cmd(TIM1, ENABLE);
-}
-
-uint16_t pressed(void){
-    if(GPIO_ReadInputDataBit(GPIOC,GPIO_Pin_3)==1){
-        Delay_Ms(500);
-        GPIO_WriteBit(GPIOC,GPIO_Pin_7,SET);
-        Delay_Ms(100);
-        GPIO_WriteBit(GPIOC,GPIO_Pin_7,RESET);
-        Delay_Ms(1000);
-        press=!press;
-    }
-    return press;
-}
-
-int main(void)
-{
-    SystemCoreClockUpdate();
-    Delay_Init();
-    USART_Printf_Init(115200);
-    Input_Capture_Init(0xFFFF, 48 - 1);
-    uint32_t count=0;
-    uint32_t value=0;
-    uint16_t avg=0;
-    while (pressed())
-    {     
-        GPIO_WriteBit(GPIOD, GPIO_Pin_3, SET);
-        Delay_Us(10); 
-        GPIO_WriteBit(GPIOD, GPIO_Pin_3, RESET);
-        if(count<=4000){
-            count+=1;
-            GPIO_WriteBit(GPIOD,GPIO_Pin_4,SET);
-            value+=distance;
-            Delay_Ms(1);
-        }else if(count==4001){
-            avg = value/count;
-            GPIO_WriteBit(GPIOC,GPIO_Pin_7,SET);
-            Delay_Ms(100);
-            GPIO_WriteBit(GPIOC,GPIO_Pin_7,RESET);
-            Delay_Ms(100);
-            GPIO_WriteBit(GPIOC,GPIO_Pin_7,SET);
-            Delay_Ms(100);
-            GPIO_WriteBit(GPIOC,GPIO_Pin_7,RESET);
-            Delay_Ms(100);
-            count+=1;
-        }else if(count>4001 && count<4050){
-            count+=1;
-            Delay_Ms(1);
-        }else{
-            GPIO_WriteBit(GPIOD,GPIO_Pin_4,RESET);
-            if(distance<avg-10 || distance>avg+10){
-                count=0;
-                while(pressed()){
-                    GPIO_WriteBit(GPIOC,GPIO_Pin_7,SET);
-                    GPIO_WriteBit(GPIOD,GPIO_Pin_4,SET);
-                    Delay_Ms(500);
-                    GPIO_WriteBit(GPIOC,GPIO_Pin_7,RESET);
-                    GPIO_WriteBit(GPIOD,GPIO_Pin_4,RESET);
-                    Delay_Ms(500);
-                }
-            }
-        }  
-    }
-}
-
-void TIM1_CC_IRQHandler(void) __attribute__((interrupt("WCH-Interrupt-fast")));
-
-void TIM1_CC_IRQHandler(void)
-{
-    if (TIM_GetITStatus(TIM1, TIM_IT_CC1) != RESET)
-    {
-        TIM_SetCounter(TIM1,0);
-    }
-
-    if (TIM_GetITStatus(TIM1, TIM_IT_CC2) != RESET)
-    {
-        uint32_t duration = TIM_GetCapture1(TIM1);
-        distance = duration*0.034/2;
-        printf("%d\n",distance);
-        
-    }
-
-    TIM_ClearITPendingBit(TIM1, TIM_IT_CC1 | TIM_IT_CC2);
-}
-
- 
-
+    // LED connected to PD6 (onboard LED)
     
+// Define the pins
+
+#define A_PIN PD1
+
+#define B_PIN PD2
+
+#define CIN_PIN PD3
+
+#define SUM_PIN PC4
+
+#define COUT_PIN PC5
+
+void setup() {
+
+  // Configure input pins
+  
+  pinMode(A_PIN, INPUT);
+  
+  pinMode(B_PIN, INPUT);
+  
+  pinMode(CIN_PIN, INPUT);
+
+  // Configure output pins
+  
+  pinMode(SUM_PIN, OUTPUT);
+  
+  pinMode(COUT_PIN, OUTPUT);
+}
+
+void loop() {
+
+  // Read inputs
+  
+  int A = digitalRead(A_PIN);
+  
+  int B = digitalRead(B_PIN);
+  
+  int Cin = digitalRead(CIN_PIN);
+
+  // Calculate Sum and Cout
+  
+  int Sum = A ^ B ^ Cin; // XOR for Sum
+  
+  int Cout = (A & B) | (Cin & (A ^ B)); // AND/OR for Cout
+
+  // Set output pins
+  
+  digitalWrite(SUM_PIN, Sum);
+  
+  digitalWrite(COUT_PIN, Cout);
+  
+}
+
+## application
+1. Digital Signal Processing (DSP)
+2. Embedded Systems
+3. Arithmetic and Logic Units (ALUs)
+4. Memory Address Calculations
 
 
 
-   
-            
 
 
 
 
 
-## Key Features
-1. Easy Installation: Requires minimal setup; simply place it perpendicular to a solid surface, with 5v DC connection.
-2. Auto-Adjust Feature: Automatically calibrates the detection threshold within 10 seconds of being turned on.
-3. Adaptable Range: Can be placed between 0.1- 4 meters from the detection surface.
-4. Low Power Consumption: Designed to operate efficiently with just 5V DC power which can be provided from a 5V adapter or a Battery bank.
-5. Privacy-Friendly: Suitable for use in private rooms without violating privacy.
+
+
+
+
+
+
 
 
 
