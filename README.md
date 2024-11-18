@@ -314,6 +314,27 @@ void loop() {
 3. Arithmetic and Logic Units (ALUs)
 4. Memory Address Calculations
 
+***
+***
+***
+## TASK 6 
+## DEMONSTRATION OF MINI PROJECT
+https://drive.google.com/file/d/1mYq2_ZAM3QmlFHHVpyEegiMgoprt4R-k/view?usp=drive_link
+
+## INFERENCE
+The video include few example of demonstration of full adder ie 111, 100, 000, 101
+
+RED for SUM 
+
+GREEN for CARRY 
+***
+***
+***
+
+## ACKNOWLEDGMENT
+I extend my heartfelt gratitude to Kunal Ghosh Sir for providing me with the opportunity to delve into RISC-V Architecture through this internship with the VSDSquadron Mini. This experience has been incredibly inspiring, fueling my curiosity and sharpening my skills. I am equally thankful to VLSI System Design for creating such a valuable learning platform, which has played a significant role in my personal and professional development.
+
+
 
 
 
