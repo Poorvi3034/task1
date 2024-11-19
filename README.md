@@ -319,14 +319,16 @@ void loop() {
 ***
 ## TASK 6 
 ## DEMONSTRATION OF MINI PROJECT
-https://drive.google.com/file/d/1mYq2_ZAM3QmlFHHVpyEegiMgoprt4R-k/view?usp=drive_link
+https://drive.google.com/file/d/1wRsqrjZtRjehIF5eJGcQesAmwt2ndjvd/view?usp=drive_link
 
 ## INFERENCE
-The video include few example of demonstration of full adder ie 111, 100, 000, 101
+The video includes few example of demonstration of full adder, ie 111, 100, 000, 101
 
 RED for SUM 
 
 GREEN for CARRY 
+
+it is observed that when push button is not pressed , it is automatically in 111 state.
 ***
 ***
 ***
